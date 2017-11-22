@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="user.service.BoardMapper">
+	<!-- 게시글 등록 -->
+	<insert id="insertboard" parameterType="board">
+		insert into
+		GAMEBOARD(GAMENUM, title, content)
+		values (gameboard_seq.nextval,
+		#{title}, #{content})
+	</insert>
+	<!-- 게시글 읽기 -->
+	<select id="readboard" resultType="board">
+		select *
+		from gameBoard
+		where
+		gameNum = #{gamenum}
+	</select>
+	<!-- 조회수 증가 -->
+	<update id="addhits">
+		update gameBoard
+		set hits = hits + 1
+		where gameNum =
+		#{gamenum}
+	</update>
+	<!-- 게시글 삭제 -->
+	<delete id="deleteboard">
+		delete gameBoard
+		where gameNum = #{gamenum}
+	</delete>
+	<!-- 게시글 전체 목록 -->
+	<select id="getBoardList" resultType="board">
+		select *
+		from gameBoard
+	</select>
+	<select id="searchboard" parameterType="map" resultType="board">
+		select *
+		from gameBoard
+		<where>
+			<if test="col == 1">
+				title like '%'||#{word}||'%'
+			</if>
+			<if test="col == 2">
+				content like '%'||#{word}||'%'
+			</if>
+		</where>
+	</select>
+	<insert id="insertreply" parameterType="reply">
+		insert into
+		adminreply(replyNum, gameNum, content)
+		values (adminreply_seq.nextval,
+		#{gameNum}, #{content})
+	</insert>
+	<select id="getReplyList" resultType="reply">
+		select *
+		from adminreply
+		where gameNum = #{gamenum}
+	</select>
+</mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user.service.UserMapper">
+
+
+	<!-- 로그인 -->
+	<select id="Login" parameterType="user" resultType="user">
+		select *
+		from huser
+		where id =#{id} and pass = #{pass}
+	</select>
+
+
+	<!-- 아이디 등록 -->
+	<insert id="MakeId" parameterType="user">
+		insert into huser(hno, name, jumin, id, pass)
+		values(user_seq.nextval, #{name},#{jumin},#{id},#{pass})
+	</insert>
+
+	<!-- 유저 정보 -->
+	<select id="MyInfo" resultType="user">
+		select *
+		from huser
+		where jumin =
+		#{jumin}
+	</select>
+
+	<!-- 돈넣기 -->
+	<update id="InsertMoney" parameterType="user">
+		update huser
+		set money=	#{money}
+		where id = #{id}
+	</update>
+
+	<!-- 아이디 삭제 -->
+	<delete id="DeleteID">
+		delete huser
+		where jumin = #{jumin}
+	</delete>
+	
+	<!-- 배팅 -->
+	
+</mapper>

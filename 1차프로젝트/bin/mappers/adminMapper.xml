@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user.service.AdminMapper">
+
+	<!-- 로그인 기능 -->
+	<select id="selectAdmin" parameterType="admin" resultType="admin">
+		SELECT *
+		FROM ADMIN
+		WHERE id = #{id} AND pass = #{pass}
+	</select>
+
+	<!-- 전체 출력 기능 -->
+	<select id="getUserList" resultType="user">
+		SELECT *
+		FROM huser
+	</select>
+
+	<!-- 번호로 유저 삭제 -->
+	<delete id="deleteUser">
+		DELETE huser
+		WHERE hno = #{hno}
+	</delete>
+	<!-- 유저 검색 -->
+	<select id="searchUser" resultType="user">
+		SELECT *
+		FROM huser
+		WHERE id like '%'||#{id}||'%'
+	</select>
+	
+	<!-- 돈넣어주기 -->
+	<update id="insertMoney" parameterType="user">
+		UPDATE huser
+		SET money = #{money}
+		where hno = #{hno}
+	</update>
+	<insert id="insertreply" parameterType="reply">
+		insert into
+		adminreply(replyNum, gameNum, content)
+		values (adminreply_seq.nextval,
+		#{gameNum}, #{content})
+	</insert>
+</mapper>

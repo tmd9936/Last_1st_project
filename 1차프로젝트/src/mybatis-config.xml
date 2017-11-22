@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
+<configuration>
+
+	<properties resource="db.properties" />
+
+	<!-- 약칭을 주는 태그 꼭 이 자리에 있어야됨  -->
+	<typeAliases>
+		<!-- type에는 약칭을 주고싶은 파일 전체경로, alias는 쓰고 싶은 약칭 -->
+		<typeAlias type="human.vo.User" alias="user" />
+		<typeAlias type="human.vo.Admin" alias="admin"/>
+		<typeAlias type="human.vo.Board" alias="board"/>
+		<typeAlias type="human.vo.Reply" alias="reply"/>
+	</typeAliases>
+
+	<!-- 접속정보 설정 -->
+	<environments default="development"> <!-- 환경 설정 -->
+		<environment id="development"> <!-- 환경 -->
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED"><!-- Connection(쿼리 조작 권한) 접근권한(티켓)을 발급 -->
+				<!-- 설정 값으로 속성값을 전달 -->
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="mappers/userMapper.xml" />
+		<mapper resource="mappers/adminMapper.xml" />
+		<mapper resource="mappers/boardmapper.xml"/>
+	</mappers>
+</configuration>
